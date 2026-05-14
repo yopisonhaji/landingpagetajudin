@@ -1,0 +1,581 @@
+:root {
+    /* 60% - Backgrounds (Soft Cream) */
+    --color-bg: #FDFBF7;
+    --color-bg-alt: #F4EBE1;
+
+    /* 30% - Primary Elements (Dark Emerald Green) */
+    --color-primary: #023020;
+    --color-primary-light: #0B4530;
+
+    /* 10% - Accents (Gold & WhatsApp Green) */
+    --color-accent: #D4AF37;
+    --color-accent-hover: #B89626;
+    --color-wa: #25D366;
+    --color-wa-hover: #128C7E;
+
+    /* Text Colors */
+    --text-main: #2C3E50;
+    --text-light: #FFFFFF;
+    --text-muted: #666666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; /* Base for rem */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    padding-top: 65px; /* Prevent header from hiding behind sticky banner */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    color: var(--color-primary);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-gold { color: var(--color-accent) !important; }
+.text-white { color: var(--text-light) !important; }
+
+.container {
+    width: 100%;
+    max-width: 600px; /* Optimized for mobile/tablet feel even on desktop */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 60px 0; /* Slightly tighter for mobile flow */
+}
+
+/* Animation Classes */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    filter: blur(4px);
+    transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), 
+                transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 1s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform, filter;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.btn-gold {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+}
+
+.btn-gold:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+}
+
+.btn-wa {
+    background-color: var(--color-wa);
+    color: white;
+    gap: 10px;
+}
+
+.btn-wa i {
+    font-size: 1.3rem;
+}
+
+.btn-wa:hover {
+    background-color: var(--color-wa-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+}
+
+/* ---- SECTION: HERO ---- */
+.hero-section {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: url('foto/ruang-belajar-tahfidz-fokus.jpg') center/cover no-repeat;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Soft light burst effect */
+    background: radial-gradient(circle at center, rgba(2, 48, 32, 0.75) 0%, rgba(2, 48, 32, 0.95) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.super-hook {
+    color: var(--color-accent);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.hero-title {
+    color: var(--text-light);
+    font-size: 2rem; /* ~32px */
+    margin-bottom: 20px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+    color: #E2E8F0;
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* ---- SECTION: AGITASI ---- */
+.agitasi-section {
+    background-color: var(--color-bg);
+}
+
+.agitasi-card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+    border-left: 6px solid var(--color-accent);
+}
+
+.agitasi-quote {
+    font-size: 1.15rem;
+    color: var(--color-primary);
+    font-style: italic;
+    font-weight: 600;
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+/* ---- SECTION: PILAR UTAMA (CARD BASED) ---- */
+.pilar-section {
+    background-color: var(--color-bg-alt);
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.card-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pilar-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.pilar-icon {
+    font-size: 2rem;
+    color: var(--color-accent);
+    margin-bottom: 15px;
+}
+
+.pilar-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.pilar-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ---- SECTION: AUTHORITY BUILDER ---- */
+.authority-section {
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+}
+
+.authority-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 40px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.authority-img {
+    width: 220px;
+    height: 250px;
+    border-radius: 20px;
+    object-fit: cover;
+    object-position: top;
+    border: 4px solid var(--color-accent);
+    margin-bottom: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+.authority-name {
+    color: white;
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+}
+
+.authority-list {
+    list-style: none;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.authority-list li {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #E2E8F0;
+}
+
+.authority-list li i {
+    color: var(--color-accent);
+    margin-top: 4px;
+    font-size: 1.1rem;
+}
+
+/* ---- SECTION: LINGKUNGAN ---- */
+.fasilitas-section {
+    background-color: white;
+}
+
+.fasilitas-desc {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.fasilitas-grid-mobile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.fasilitas-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+}
+
+.fasilitas-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fasilitas-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(2, 48, 32, 0.9), transparent);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 25px 10px 10px;
+    text-align: center;
+}
+
+/* ---- SECTION: BIAYA ---- */
+.biaya-section {
+    background-color: var(--color-bg);
+}
+
+.biaya-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+    border-top: 4px solid var(--color-primary);
+}
+
+.biaya-card:nth-child(2) {
+    border-top-color: var(--color-accent); /* Highlight middle card */
+}
+
+.biaya-header {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.biaya-amount {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 10px;
+}
+
+.biaya-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ---- SECTION: SCARCITY & CTA ---- */
+.cta-section {
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+    padding: 80px 0;
+}
+
+.scarcity-alert {
+    display: inline-block;
+    background-color: #800000; /* Dark Maroon/Red for urgency */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 25px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(128, 0, 0, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(128, 0, 0, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(128, 0, 0, 0); }
+}
+
+.cta-desc {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #E2E8F0;
+    line-height: 1.6;
+}
+
+/* Urgency Elements */
+.countdown-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.countdown-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    padding: 10px;
+    width: 65px;
+    text-align: center;
+}
+
+.countdown-item span {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.countdown-item label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #E2E8F0;
+    letter-spacing: 1px;
+}
+
+.countdown-separator {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-accent);
+    margin-top: -15px;
+}
+
+.progress-container {
+    max-width: 400px;
+    margin: 0 auto 40px;
+    text-align: left;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    height: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #D4AF37, #fca5a5);
+    height: 100%;
+    border-radius: 50px;
+    width: 93%;
+    position: relative;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    animation: fillProgress 2s ease-out forwards;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite linear;
+}
+
+@keyframes fillProgress {
+    0% { width: 0%; }
+    100% { width: 93%; }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Footer */
+footer {
+    background-color: #011a11;
+    color: #666;
+    text-align: center;
+    padding: 25px 0;
+    font-size: 0.9rem;
+}
+
+/* Sticky Urgency Banner */
+.sticky-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #b91c1c; /* Deep Red for aggressive urgency */
+    color: white;
+    z-index: 9999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 5px 15px rgba(185, 28, 28, 0.4);
+    animation: slideDown 0.8s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+.sticky-banner-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.sticky-countdown {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #fde047; /* Yellowish gold for contrast */
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.btn-sticky {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+.btn-sticky:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive adjustments for larger screens (Tablet/Desktop) */
+@media (min-width: 768px) {
+    .hero-title { font-size: 3rem; }
+    .card-stack { flex-direction: row; }
+    .pilar-card, .biaya-card { flex: 1; }
+    .container { max-width: 1000px; }
+    .fasilitas-grid-mobile { grid-template-columns: repeat(3, 1fr); }
+    .cta-buttons { flex-direction: row; justify-content: center; }
+    .cta-buttons .btn-full { width: auto; min-width: 300px; }
+    .sticky-banner { padding: 12px 40px; justify-content: center; gap: 40px; }
+    .sticky-banner-text { font-size: 1rem; }
+    .sticky-banner-text br { display: none; }
+    .sticky-countdown { font-size: 1.6rem; }
+}
