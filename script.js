@@ -1,71 +1,85 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Select all elements that should fade in
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ── FADE IN ON SCROLL ─────────────────────────
     const faders = document.querySelectorAll('.fade-in-up');
-
-    // Options for the IntersectionObserver
-    const appearOptions = {
-        threshold: 0.15, // trigger when 15% of the element is visible
-        rootMargin: "0px 0px -50px 0px" // Trigger a bit before the element is fully in view
-    };
-
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                return;
-            } else {
+            if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: stop observing once it's visible so it only animates once
-                observer.unobserve(entry.target);
+                obs.unobserve(entry.target);
             }
         });
-    }, appearOptions);
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    faders.forEach(el => observer.observe(el));
 
-    // Apply observer to all fader elements
-    faders.forEach(fader => {
-        appearOnScroll.observe(fader);
-    });
-
-    // Countdown Timer Logic
-    // Set a fake deadline for urgency: 2 days, 5 hours, 30 minutes from the time they open the page
-    // Or set it to end of current month. For FOMO, a rolling 48-72 hours is very effective.
-    const deadline = new Date();
-    deadline.setHours(deadline.getHours() + 53); // 53 hours from now
-    deadline.setMinutes(deadline.getMinutes() + 14);
-
-    function updateCountdown() {
-        const now = new Date();
-        const diff = deadline - now;
-
-        if (diff <= 0) {
-            // Keep it at zero if it somehow expires while they are watching
-            document.getElementById('cd-days').innerText = "00";
-            document.getElementById('cd-hours').innerText = "00";
-            document.getElementById('cd-minutes').innerText = "00";
-            document.getElementById('cd-seconds').innerText = "00";
-            
-            document.getElementById('st-hours').innerText = "00";
-            document.getElementById('st-minutes').innerText = "00";
-            document.getElementById('st-seconds').innerText = "00";
-            return;
+    // ── COUNTDOWN TIMER ───────────────────────────
+    // Rolling 53h countdown stored in sessionStorage for consistency
+    let deadline = sessionStorage.getItem('dq_deadline');
+    if (!deadline) {
+        const d = new Date();
+        d.setHours(d.getHours() + 53);
+        d.setMinutes(d.getMinutes() + 14);
+        deadline = d.getTime();
+        sessionStorage.setItem('dq_deadline', deadline);
+    } else {
+        deadline = parseInt(deadline);
+        // If expired, reset
+        if (deadline < Date.now()) {
+            const d = new Date();
+            d.setHours(d.getHours() + 53);
+            d.setMinutes(d.getMinutes() + 14);
+            deadline = d.getTime();
+            sessionStorage.setItem('dq_deadline', deadline);
         }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / 1000 / 60) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        document.getElementById('cd-days').innerText = days.toString().padStart(2, '0');
-        document.getElementById('cd-hours').innerText = hours.toString().padStart(2, '0');
-        document.getElementById('cd-minutes').innerText = minutes.toString().padStart(2, '0');
-        document.getElementById('cd-seconds').innerText = seconds.toString().padStart(2, '0');
-
-        // Update sticky banner
-        document.getElementById('st-hours').innerText = hours.toString().padStart(2, '0');
-        document.getElementById('st-minutes').innerText = minutes.toString().padStart(2, '0');
-        document.getElementById('st-seconds').innerText = seconds.toString().padStart(2, '0');
     }
 
-    // Run once immediately, then every second
+    function pad(n) { return n.toString().padStart(2, '0'); }
+
+    function updateCountdown() {
+        const diff = deadline - Date.now();
+        if (diff <= 0) {
+            ['cd-days','cd-hours','cd-minutes','cd-seconds','st-hours','st-minutes','st-seconds']
+                .forEach(id => { const el = document.getElementById(id); if(el) el.innerText = '00'; });
+            return;
+        }
+        const days    = Math.floor(diff / 86400000);
+        const hours   = Math.floor((diff % 86400000) / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        const set = (id, val) => { const el = document.getElementById(id); if(el) el.innerText = pad(val); };
+        set('cd-days', days);
+        set('cd-hours', hours);
+        set('cd-minutes', minutes);
+        set('cd-seconds', seconds);
+        set('st-hours', hours);
+        set('st-minutes', minutes);
+        set('st-seconds', seconds);
+    }
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+});
+
+// ── IMAGE MODAL ───────────────────────────────────
+function openModal(src) {
+    const modal = document.getElementById('imageModal');
+    const img   = document.getElementById('modalImg');
+    if (!modal || !img) return;
+    img.src = src;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
 });
