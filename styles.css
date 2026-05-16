@@ -236,6 +236,23 @@ section { padding: 70px 0; }
 }
 .hero-title span { color: var(--color-accent); display: block; }
 
+.hero-pesantren-name {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-accent) !important;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding: 6px 18px;
+    border: 1px solid rgba(212,175,119,0.5);
+    border-radius: 8px;
+    display: inline-block;
+    background: rgba(212,175,119,0.1);
+    text-shadow: 0 0 20px rgba(212,175,119,0.6);
+}
+
 .hero-sub-hook {
     font-size: 1rem; color: #D1FAE5;
     margin: 16px 0 32px; line-height: 1.7;
